@@ -1,0 +1,320 @@
+
+
+.inner-modal{
+	width: 450px;
+	height: 300px;
+	border: 1px solid #ccc;
+	background: #fff;
+	position: absolute;
+	
+	z-index:13;
+}
+
+
+.bg-modal, .change-modal{
+	position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #373737;
+    background-color: rgba(55, 55, 55, 0.6);
+
+    height: 100%;
+    z-index: 12;
+    display: none
+}
+
+.change-modal{
+	background: transparent
+}
+
+.modal-con{
+	width: 400px;
+	height: 200px;
+	margin:50px auto 0 ;
+}
+.modal-con li{
+	width: 360px;
+	height: 60px;
+	margin: 30px auto;
+}
+
+.con-title .title{
+	width: 300px;
+	height: 30px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	background: #fff;
+	outline: none;
+	padding:0 10px;
+	box-sizing: border-box;
+	color: #000;
+	
+}
+.con-title .title-btn{
+	width: 300px;
+	height: 25px;
+	padding: 5px 0;
+	box-sizing: border-box
+
+}
+
+.title-btn input{
+	width: 50px;
+	height: 30px;
+	border-radius: 10px;
+	border: 1px solid #eee;
+	background: lightskyblue;
+	outline: none;
+	border: none;
+	margin: 0 10px;
+	cursor: pointer;
+}
+
+.title-btn input:hover{
+	background: lightpink;
+}
+
+.con-time .time-change{
+	padding-top: 10px;
+	width: 350px;
+	height: 50px;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+.time-change >div{
+	float: left;
+	display: inline-block;
+	margin: 0 5px;
+}
+.time-change .icon{
+	width: 30px;
+	height: 30px;
+	text-align: center
+}
+.clock-icon{
+	
+	font-size: 20px;
+	color: lightskyblue;
+	font-style: normal;
+}
+.time-check{
+
+	width: 280px;
+	height: 30px;
+	background: #EEE;
+	border: 1px solid #ccc;
+	text-align: center;
+	line-height: 25px
+}
+.ant-calendar-picker-icon{
+	display: none
+}
+.time-check input{
+	width: 135px;
+	height: 100%;
+	border: none;
+	font-size: 12px;
+	outline: none;
+	text-align: center;
+	color: #000;
+}
+
+.foot-btn-check{
+	margin-top: 50px;
+	width: 300px;
+	height: 40px;
+}
+	
+.foot-btn-check input{
+	display: inline-block;
+	width: 50px;
+	height: 30px;
+	border-radius: 10px;
+	border: 1px solid #eee;
+	background: lightskyblue;
+	outline: none;
+	border: none;
+	cursor: pointer
+}
+.btn-f-confirm{
+	float: right;
+}
+.btn-f-cancle{
+	float: left;
+}
+
+.foot-btn-check input:hover{
+	background: lightpink;
+}
+
+.rbc-slot-selection{
+	background: pink;
+	display: block;
+}
+
+.rbc-agenda-view{
+	font-size: 20px;
+}
+
+.change-date{
+	width: 300px;
+	height: 300px;
+	border: 1px solid #ccc;
+	background: #ccc;
+	position: absolute;
+	box-shadow: 0 0 10px gray;
+	left: 50px;
+	top: 0;
+	z-index: 9
+}
+
+.change-date .top{
+	width: 100%;
+	height: 50%;
+	background: #9FE1E7;
+}
+
+.change-date .bot{
+	width: 100%;
+	height: 50%;
+	background: #fff;
+}
+
+.icon-action{
+	width: 120px;
+	height: 50px;
+	float: right;
+	margin: 5px;
+}
+.icon-action .icon{
+	width: 30px;
+	height: 30px;
+	font-size: 20px;
+	color: #000;
+	margin: 5px;
+	cursor: pointer;
+	padding: 5px;
+}
+
+.icon-action .icon:hover{
+	color: purple;
+	background: #ddd;
+	border-radius: 50%;
+
+}
+.task{
+	width: 100%;
+	height: 50px;
+	padding: 20px 10px;
+}
+
+.task .title-task{
+	width: 90%;
+	height: 30px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	padding-left: 5px;
+	box-sizing: border-box;
+	outline: none;
+	color: #000;
+}
+
+.bot-date{
+	width: 100%;
+	height: 40%;
+	padding-top: 5%;
+}
+
+.bot-date .icon{
+	margin-top: 20px;
+	font-size: 20px;
+	padding: 5px;
+}
+.bot-date .icon:hover{
+	color: purple;
+	background: #9ef1e7;
+	border-radius: 50%;
+}
+.date-receive{
+	width: 88%;
+	height: 60px;
+	display: inline-block;
+	float: right;
+	
+}
+.date-receive input{
+	width: 80%;
+	height: 25px;
+	margin: 3px;
+	padding: 0 5px;
+	border-radius: 5px;
+	outline: none;
+	border: 1px solid #ccc;
+	color: #000;
+	font-size: 14px;
+}
+
+.bot-when{
+	width: 100%;
+	height: 50px;
+	padding-top: 20px;
+}
+.bot-when .icon{
+	font-size: 20px;
+	padding: 5px ;
+}
+.bot-when .icon:hover{
+	background: #9ef1e7;
+	border-radius: 50%;
+}
+.bell-time{
+	width: 100%;
+	color: #zzz;
+	font-size: 18px;
+	background: #eee;
+	margin-left: 8px;
+	padding: 2px 10px; 
+}
+
+.downCon{
+	width: 150px;
+	height: 150px;
+	background: lightcyan;
+	position: absolute;
+	z-index: 1
+}
+
+
+.rbc-day-slot .rbc-event{
+	z-index: 11;
+}
+
+
+.rbc-slot-selection{
+	z-index: 10;
+	display: block;
+	background: purple;
+}
+
+.rbc-event, .rbc-selected{
+	background: #3174ad !important;
+	opacity: 1
+}
+
+.rbc-event-content{
+	background: #3174ad !important
+
+}
+
+.rbc-addons-dnd-dragging{
+	background: #3174ad !important
+}
+
+.rbc-month-row{
+	min-height: 150px;
+	overflow: auto;
+}
