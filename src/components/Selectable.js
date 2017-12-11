@@ -32,7 +32,7 @@ function formatDate(fmt){
    //fmt = new Date()
    let year = fmt.getFullYear()
    let month = fmt.getMonth() < '10' ? '0' + (fmt.getMonth() + 1) : fmt.getMonth() + 1
-   let day = fmt.getDay() <  '10' ? '0' + fmt.getDate()  : fmt.getDate()
+   let day = fmt.getDay() <  '10' ? '0' + fmt.getDay()  : fmt.getDay()
 
    return fmt = year + '/' + month + '/' + day
 
@@ -51,39 +51,34 @@ function apm(ele){
 
 
 //e.clientX, e.clientY
-let num1, num2
+let num1, num2, num3 = 0;
 document.onclick = function(evt){
   let e = evt || window.event;
-  let leftMax = document.body.clientWidth - 400
-  let topMax = document.body.clientHeight - 400
+  //let leftMax = document.querySelector('.rbc-calendar').clientWidth
+  //let topMax = document.querySelector('.rbc-calendar').clientHeight
+  console.log(leftMax, topMax)
+  let leftMax = document.body.clientWidth -350
+  let topMax = document.body.clientHeight -550
   //console.log(leftMax, topMax)
   num1 = e.clientX;
   num2 = e.clientY;
   if(num1 >= leftMax){
-    num1 = e.clientX - 400;
-    num2 = e.clientY - 100
-    console.log('num1', num1)
-  }else {
-    num1 = e.clientX + 10
-    console.log('num1', num1)
+    num1 = e.clientX - 300;
+    num2 = e.clientY - 50
+  }else if(num1 <= 450) {
+    num1 = e.clientX + 50
+    num2 = e.clientY + 300
 
   }
   if(num2 >= topMax){
-    num2 = e.clientY - 200
+    num2 = e.clientY - 350
+    //console.log('num2', num2)
+  }else if(num2 <= 350){
+    num2 = e.clientY - 10
     console.log('num2', num2)
-  }else{
-    num2 = e.clientY + 10
   }
 }
 
-let up1, up2
-document.onmouseup = function(evt){
-  let e = evt || window.event;
-  //console.log(e.clientX, e.clientY)
-  up1 = e.clientX + 10
-  up2 = e.clientY + 10
-}
-    
 //onmousewheel 
 function disabledMouseWheel(){
   if(document.addEventListener){
@@ -190,8 +185,8 @@ class Selectable extends Component{
         isClick: false,
         posX:num1,
         posY:num2,
-        defaultViews: defaultViews
-        
+        defaultViews: defaultViews,
+        display: false
       }
   }
 
@@ -212,12 +207,16 @@ class Selectable extends Component{
   showBg = () => {
 
     const { dis, display, disabled } = this.state
+    window.onmousewheel = document.onmousewheel = function(){
+        return true
+    }
 
     this.setState({
         dis: !dis,
         display: !display,
         disabled: true
     })
+    console.log(this.state.display)
 
   }
 
@@ -516,7 +515,7 @@ class Selectable extends Component{
                 return event.title
               }
               
-              const { eventsDate,  selecting } = this.state;
+              const { eventsDate,  dis, display } = this.state;
               
               //idx
               const idx = eventsDate.indexOf(event);
@@ -526,8 +525,13 @@ class Selectable extends Component{
               this.setState({
                 eventsDate: eventsDate,
                 delDateEvent: idx,
-                selecting: true
+                display: true
               })
+
+              console.log(display)
+              if(!display){
+                disabledMouseWheel()
+              }
 
               //change-date
               let myModal = this.refs.myModal
@@ -544,9 +548,8 @@ class Selectable extends Component{
 
               console.log(leftMax, topMax)
 
-              //onmousewheel
-              //disabledMouseWheel()
-              
+              //onmousewheel  disabledMouseWheel()
+
               let myTask = this.refs.myTask;
               let reTimeS = this.refs.reTimeS
               let reTimeE = this.refs.reTimeE
@@ -557,7 +560,6 @@ class Selectable extends Component{
             }
           }
           selecting={true}
-
 
           components={{
             event: Event,
@@ -570,41 +572,38 @@ class Selectable extends Component{
               
               //甘特图
 
-              const { defaultViews } = this.state;
-              if(allViews.indexOf('month') != -1){
-                console.log(defaultViews)
+              const { defaultViews, display } = this.state;
 
-
-
-                //return false;
-              }
-
-              alert(`${slotInfo.start.toLocaleString()}`)
-
-              //console.log('slotInfo.start', slotInfo.start)
-              //console.log('slotInfo.end', slotInfo.end.toLocaleString())
+              alert(`${slotInfo.start.toLocaleString('chinese', {hour12: false})}  am`)
 
               //rbc-slot-selection
               let slot = document.querySelector('.rbc-slot-selection')
               
               let bg = this.refs.mybg
               bg.style.display = 'block';
+              bg.onmousewheel = function(){
+                return false
+              }
 
               //timeS
               let timeS = this.refs.timeS;
               let timeE = this.refs.timeE;
-              timeS.value = `${slotInfo.start.toLocaleString()}`
-              timeE.value = `${slotInfo.end.toLocaleString()}`
+              
+              //console.log(slotInfo.start.getHours())
+
+              timeS.value = slotInfo.start.getHours() < 12 ? `${slotInfo.start.toLocaleString('chinese', {hour12: false})} AM` : `${slotInfo.start.toLocaleString('chinese', {hour12: false})} PM`
+              timeE.value = slotInfo.end.getHours() < 12 ? `${slotInfo.end.toLocaleString('chinese', {hour12: false})} AM` : `${slotInfo.end.toLocaleString('chinese', {hour12: false})} PM`
+              
+              //onmousewheel
+              
               this.setState({
                   timeSatrt:timeS.value,
-                  timeEnd: timeE.value
+                  timeEnd: timeE.value,
               })
-              
-              //downCon
-              let listCon = this.refs.downCon;
+            
+              // inner-modal
               let innerModal = this.refs.innerModal;
-              innerModal.style.left = up1 + 'px'
-              innerModal.style.top = up2 + 'px'
+              
               
               //conTitle
               let conTitle = this.refs.conTitle
@@ -612,6 +611,8 @@ class Selectable extends Component{
               let conEnd = this.refs.dateEnd
               //conStart.innerText = slotInfo.start.toLocaleString()
               //conEnd.innerText = slotInfo.end.toLocaleString()
+
+              
               conStart.innerText = apm(slotInfo.start)
               conEnd.innerText = apm(slotInfo.end)
 
