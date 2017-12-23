@@ -2,6 +2,16 @@ import React from 'react';
 import BigCalendar from 'react-big-calendar';
 import events from './static/events';
 
+import { Link } from 'react-router'
+import { jsPlumb } from 'jsplumb'
+import { jointjs } from 'jointjs'
+
+console.log(jsPlumb)
+let body = document.body
+jsPlumb.Anchor( (evt) => {
+  console.log(evt)
+})
+
 let allViews = Object.keys(BigCalendar.Views).map(k => BigCalendar.Views[k])
 
 function apm(ele){
@@ -45,7 +55,11 @@ let Basic = React.createClass({
     return (
 
       <div>
-          
+          <div className="links">
+            <Link to={{pathname:'select/'}}>child</Link>
+            <Link to="/child" activeClassName="active">Child</Link>
+          </div>
+
           <BigCalendar
             selectable
             

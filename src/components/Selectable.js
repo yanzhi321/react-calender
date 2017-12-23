@@ -56,7 +56,6 @@ document.onclick = function(evt){
   let e = evt || window.event;
   //let leftMax = document.querySelector('.rbc-calendar').clientWidth
   //let topMax = document.querySelector('.rbc-calendar').clientHeight
-  console.log(leftMax, topMax)
   let leftMax = document.body.clientWidth -350
   let topMax = document.body.clientHeight -550
   //console.log(leftMax, topMax)
@@ -135,7 +134,7 @@ let dateEvents = [
   {
     'title': 'Christmas Eve',
     'start': new Date(2017, 11, 24, 10, 10, 10),
-    'end': new Date(2017, 11, 24, 18, 18, 18)
+    'end': new Date(2017, 11, 24, 11, 11, 18)
   },
   {
     'title': 'Christmas Day',
@@ -195,6 +194,10 @@ class Selectable extends Component{
   componentDidMount(){
 
       //console.log('dom has done')
+      //https://dhtmlx.com/docs/products/dhtmlxGantt/#product-features
+      //https://github.com/DHTMLX/react-gantt-demo   甘特图
+      //react--cli  https://github.com/bodyno/universal-react-starter-kit
+      //jsplumb  https://jsplumbtoolkit.com/docs/toolkit/demo-react.html#babel-setup
 
   }
 
@@ -216,7 +219,8 @@ class Selectable extends Component{
         display: !display,
         disabled: true
     })
-    console.log(this.state.display)
+
+    //console.log(this.state.display)
 
   }
 

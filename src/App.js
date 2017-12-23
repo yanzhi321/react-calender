@@ -49,6 +49,9 @@ class App extends Component {
     				<li><Link to="/render" activeClassName="active">Rendering</Link></li>
                     <li><Link to="/select" activeClassName="active">Selectable</Link></li>
                     <li><Link to="/time" activeClassName="active">Timeslots</Link></li>
+                    <li><Link to="/next" activeClassName="active">Next</Link></li>
+                    <li><Link to="/nextg6" activeClassName="active">NextG6</Link></li>
+                    <li><Link to="/child" activeClassName="active">Child</Link></li>
 
     			</ul>
         	</div>

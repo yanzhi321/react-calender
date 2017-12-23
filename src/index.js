@@ -17,6 +17,9 @@ import Popup from './components/Popup'
 import Rendering from './components/Rendering'
 import Select from './components/Selectable'
 import Time from './components/Timeslots'
+import Next from './components/Next'
+import NextG6 from './components/NextG6'
+import Child from './components/Child'
 
 //配置路由  history={browserHistory} 可以让路由变得又优美一些
 //IndexRoute默认加载的是主页
@@ -28,12 +31,16 @@ ReactDOM.render((
 			  
 			  <Route path="cultures" component={Cultures}></Route>
 			  <Route path="custom" component={Custom}></Route>
-				<Route path="cusView" component={CusView}></Route>
+			  <Route path="cusView" component={CusView}></Route>
 			  <Route path="dnd" component={Dnd}></Route>
 			  <Route path="pop" component={Popup}></Route>
 			  <Route path="render" component={Rendering}></Route>
 			  <Route path="select" component={Select}></Route>	
-			  <Route path="time" component={Time}></Route>	
+			  <Route path="time" component={Time}></Route>
+			  <Route path="next" component={Next}></Route>
+			  <Route path="nextg6" component={NextG6}></Route>
+			  <Route path="child" component={Child}></Route>
+
 
 	    </Route>
   	</Router>),
