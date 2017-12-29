@@ -1,27 +1,11 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router';
 import G6 from '@antv/g6'
-import G6Plugins from '@antv/g6-plugins'
+//import G6Plugins from '@antv/g6-plugins'
 
 //require('./static/css/nextG6.css')
 import './static/css/nextG6.css'
 
 //https://antv.alipay.com/zh-cn/g6/1.x/tutorial/index.html
-const data = {
-	"nodes": [],
-	"deges": []
-}
-
-const anchorsPoints = [
-	[0.5, 0],
-	[0.25, 0],
-	[0.75, 0],
-	[1, 0.5],
-	[0.5, 1],
-	[0, 0.5],
-]
-		
- //set G6 canvas
 let net = null;
 const Util = G6.Util;
 
@@ -32,14 +16,34 @@ class NextG6 extends Component{
 		super(props)
 		this.state = {
 			msg: 'NextG6',
-			anchors: anchorsPoints,
+			anchors: this.anchorsPoints,
 			datas: {},
 			labelRect: 'Rect',
 			id:0,
 			datasP: null,
-			isClick: false
+			isClick: false, 
+			dis: 'none',
+			disN: 'none'
+			
 		}
 
+		this.data = {
+			"nodes": [],
+			"deges": []
+		}
+
+		this.anchorsPoints = [
+			[0.5, 0],
+			[0.25, 0],
+			[0.75, 0],
+			[1, 0.5],
+			[0.5, 1],
+			[0, 0.5],
+		]
+		 //set G6 canvas
+		this.divArr = []
+		this.netArr = []
+		
 	}
 
 	componentDidMount(){
@@ -140,12 +144,14 @@ class NextG6 extends Component{
 	        zIndex: 10,
 	        display: 'none'
 	    });
-	    const mouseEnterNodeStyle = {
-	        lineWidth: 2
-	    };
-	    const nodeStyle = {
-	        lineWidth: 1
-	    };
+    	/*const mouseEnterNodeStyle = {
+         *	lineWidth: 2
+    	 *};
+	     */
+	    /*const nodeStyle = {
+	     *  lineWidth: 1
+	     *};
+	     */
 
 	    function hasClass(shape, className) {
 	        if (shape) {
@@ -237,6 +243,7 @@ class NextG6 extends Component{
 	            showInputLabel(item);
 	        }
 	    });
+	   
 
 	    input.on('keydown', ev => {
 	        if (ev.keyCode === 13) {
@@ -249,8 +256,8 @@ class NextG6 extends Component{
 	    });
 
 	    //load data
-	    net.source(data.nodes, data.edges);
-	     net.removeBehaviour(['hoverNodeShowAnchor', 'dragEdgeEndHideAnchor', 'dragNodeEndHideAnchor']);
+	    net.source(this.data.nodes, this.data.edges);
+	    net.removeBehaviour(['hoverNodeShowAnchor', 'dragEdgeEndHideAnchor', 'dragNodeEndHideAnchor']);
 	    //net.edge--添加箭头
 	    net.edge().style({
 	    	arrow: true,
@@ -274,7 +281,6 @@ class NextG6 extends Component{
         //addLine: 直线-line/曲线-smooth/二次贝塞尔曲线 bezierQuadratic/水平-竖直 HV/竖直-水平-竖直 VHV/水平-竖直-水平 HVH
 	    net.on('mouseenter', function(ev){
 	    	//console.log(ev)
-	    	let shape = ev.shape;
 	    	let item = ev.item;
 	    	/*if(shape && shape.hasClass('anchor-point') && !dragging){
 	    		net.beginAdd('edge', {
@@ -288,7 +294,6 @@ class NextG6 extends Component{
 
 	    // 离开锚点切换回编辑模式
 	    net.on('mouseleave', function(ev){
-	    	let shape = ev.shape;
 	    	let item = ev.item
 	    	/*if(shape && shape.hasClass('anchor-point') && !dragging){
 	    		net.changeMode('edit')
@@ -296,18 +301,19 @@ class NextG6 extends Component{
 	    	if(item.get('type') === 'node'){
 	    		net.hideAnchor(item)
 	    	}
-	    	
 	    })
 
 	    // 绘制后显示锚点
 	    net.on('afteritemrender', function(ev){
+	    	//console.log(ev)
+	    	//let net = net
 	    	let item = ev.item;
 	    	if(item.get('type') === 'node'){
 	    		//net.showAnchor(item)
 	    	}
 	    })
 	    //net.tooltip
-	    net.node().tooltip(obj => {
+	   net.node().tooltip(obj => {
 	    	return [
 	    		['id', obj.id],
 	    		['shape', obj.shape]
@@ -315,28 +321,51 @@ class NextG6 extends Component{
 	    })
 
 	    //netonclick
+	    
 	    net.on('itemclick', ev => {
-	    	const tip = this.refs.tip;
-	    	tip.style.display = 'block'
-	    })
 
+	    	if(ev.item.get('model').shape !== 'line'){
+
+		    	this.setState({
+		    		dis: 'block'
+		    	}) 
+		    	const tipBg = this.refs.tipBg
+		    	tipBg.style.display = this.state.dis
+
+		    	console.log('ev.item', ev.item)
+		    	
+		    	//ref
+		    	const conId  = this.refs.conId;
+		    	const conShape = this.refs.conShape;
+		    	const conText = this.refs.conText;
+		    	conId.innerText = 'ID:    ' + ev.item.get('model').id;
+		    	conShape.innerText = 'shapeName   :' +  ev.item.get('model').shape;
+		    	conText.innerText = 'label:    '  + ev.item.get('model').label;
+
+	    	}
+	    })
+	}
+
+	//componentWillUpdate 
+	componentWillUpdate(nextProps, nextState){
+		//console.log('nextProps', nextProps)
+		//console.log('nextState', nextState)
 	}
 
 	//addRect
 	_addRect = () => {
-		const { labelRect, id } = this.state
+		const { labelRect} = this.state
+
 		net.beginAdd('node', {
     		shape: 'rect',
     		label: labelRect,
     		id: this.state.id++
     	})
+    	//console.log(net)
 	}
 
 	//addCircle
 	_addCircle = () => {
-
-		const { anchors, labelRect } = this.state;
-		console.log(net.beginAdd)
 		net.beginAdd('node', {
 			shape: 'circle',
 			label: 'Circle',
@@ -346,7 +375,6 @@ class NextG6 extends Component{
 
 	//addEllipse
 	_addEllipse = () => {
-		const { labelRect } = this.state
 		net.beginAdd('node', {
 			shape: 'circle',
 			label: 'Ellipse'
@@ -355,7 +383,6 @@ class NextG6 extends Component{
 
 	//addRhombus
 	_addRhombus = () => {
-		const { labelRect } = this.state
 		net.beginAdd('node', {
 			shape: 'rhombus',
 			label: 'Rhombus'
@@ -374,10 +401,10 @@ class NextG6 extends Component{
 
 	//save
 	_save = () => {
-		const { datas, datasP, isClick } = this.state;
+		
 		const saveData = net.save()
 		const json = JSON.stringify(saveData, null, 2)
-		console.log(json)
+		//console.log(json)
 
 		const showData = this.refs.showData;
 		showData.innerText = json
@@ -387,7 +414,8 @@ class NextG6 extends Component{
 			datasP: saveData,
 			isClick: true
 		})
-		//console.log(datas)
+
+		console.log(this.state.datasP)
 	}
 
 	//addLine
@@ -398,31 +426,86 @@ class NextG6 extends Component{
 	}
 
 	//showMount
-	_showMount = () => {
-
-		const { datas, datasP, isClick } = this.state
-		let netN = null;
-		//load data
+	_showMount = (e) => {
+		
+		const { datasP, isClick, disN } = this.state
+		const showMount = this.refs.showMount
+		
+		const nextClick = false;
+		const nextDatasP = null
+		this.setState({
+			datasP: nextDatasP,
+			isClick: false,
+		})
+		
 		if(isClick){
-			 netN = new G6.Net({
-				id: 'showMount',
-				width:600,
-				height: 600,
-				fitView: 'cc'
+
+			let netN = new G6.Net({
+				id: 'showMount', // 容器ID
+		        mode: 'edit', // 编辑模式
+		        fitView: 'cc', // 自适应视口为左上
+		        width: 600,
+		        height: 600,
+		        grid: {
+		        	forceAlign: true,
+		        	cell: 30,
+		        	line: {
+		        		stroke: '#ccc'
+		        	}
+		        }
 			})
-			netN.source(datasP.source.nodes, datasP.source.edges);
-			//netN.render
+
+			netN.source(datasP.source.nodes, datasP.source.edges)
 			netN.render()
-			console.log('netN', netN)
+			this.state.datasP  = {}
+			this.setState({
+				datasP: this.state.datasP,
+				disN: 'block'
+			})
+
+			
 		}else{
 			alert("please save the data")
 		}
+
+		console.log('isClick', this.state.isClick)
+		
 	}
 
+	//hide--tipBg
+	_hideBg = () => {
+		const { dis } = this.state
+		const tipBg = this.refs.tipBg
+		this.setState({
+			dis: !dis
+		})
+		tipBg.style.display = this.state.dis
+	}
 
+	//addDom
+	_addDom = () => {
+		
+		const addDiv = this.refs.addDiv;
+		console.log(addDiv)
+
+		const oDiv = document.createElement('div')
+		const txt = document.createTextNode('this is addDom')
+
+		oDiv.appendChild(txt)
+		this.divArr.push(oDiv)
+		if(this.divArr.length >= 2){
+			return false;
+		}
+		addDiv.appendChild(oDiv)
+		
+		console.log('divArr', this.divArr)
+
+	}
+
+	//render
 	render(){
 
-		const { msg }  = this.state
+		const { dis, disN }  = this.state
 		return(
 
 			<div>
@@ -435,19 +518,28 @@ class NextG6 extends Component{
 			    		<li><button className="drag" onClick={this._drag}>拖拽模式</button></li>
 			    		<li><button className="edit" onClick={this._edit}>编辑模式</button></li>
 			    		<li><button className="save" onClick={this._save}>保存</button></li>
-			    		<li><button className="save" onClick={this._anchorChange}>addLine</button></li>
-
+			    		<li><button className="addLine" onClick={this._anchorChange}>addLine</button></li>
 					</ul>
-					
 				</div>
 				<div className="showData" ref="showData">
 
 				</div>
-				<div className="tip" ref="tip">
-					
+				<div className="tip-bg" ref="tipBg" onClick={this._hideBg} style={{display: dis }}>
+					<div className="tip" ref="tip" onClick={ e => { e.stopPropagation() } } > 
+						<ul className="tip-con">
+							<li><span className="con-id" ref="conId"></span></li>
+							<li><span className="con-shape" ref="conShape"></span></li>
+							<li><span className="con-text" ref="conText"></span></li>
+						</ul>
+					</div>
 				</div>
 				<button onClick={this._showMount}>showMount</button>
-				<div id="showMount" ref="showMount"></div>
+				<button onClick={this._addDom}>addDom</button>
+				<div id="showMount" ref="showMount" style={{display: disN}}></div>
+				<div className="addDiv" ref="addDiv" style={{width: 200, height: 200, border: '1px solid #ccc' }}>
+					
+				</div>
+
 
 			</div>
 

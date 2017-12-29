@@ -111,6 +111,7 @@ const dataC2 = {
     }
   ]
 };  
+let net = null;
 
 class Next extends Component{
 
@@ -132,7 +133,6 @@ class Next extends Component{
 	_handleClick = () => {
 		
     const { addMount } = this.state;
-    let net = null;
 	  // 第四步：配置G6画布
     net = new G6.Net({
       id: 'c1',      // 容器ID
@@ -171,6 +171,7 @@ class Next extends Component{
 		netC2.render();
 
 	}
+
 
 	render(){
 

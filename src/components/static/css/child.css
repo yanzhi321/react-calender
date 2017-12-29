@@ -1,0 +1,25 @@
+.list-emoji{
+	width: 8.0rem;
+	height: 300px;
+	border: 1px solid #ccc;
+}
+
+.list-emoji li{
+	width: 30px;
+	height: 30px;
+	border:  1px solid #ccc;
+	float: left;
+}
+
+.send-input{
+	border: 1px solid purple;
+}
+
+.show-msg{
+	position: relative;
+}
+.show-msg li{
+	width: 100%;
+	border: 1px solid #ccc;
+}
+

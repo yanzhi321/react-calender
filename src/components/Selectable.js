@@ -74,7 +74,7 @@ document.onclick = function(evt){
     //console.log('num2', num2)
   }else if(num2 <= 350){
     num2 = e.clientY - 10
-    console.log('num2', num2)
+    //console.log('num2', num2)
   }
 }
 
@@ -402,8 +402,6 @@ class Selectable extends Component{
       eventsDate: nextEvents
     })
     //alert(`${event.title} was dropped onto ${event.start}`);
-
-
 
   }
 

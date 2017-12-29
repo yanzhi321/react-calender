@@ -1,10 +1,14 @@
 ::-webkit-scrollbar {
     display: none;
 }
+html{
+	font-size: 50px;
+	overflow-x: hidden;
+}
 
-html,
-body {
-    overflow-x: hidden;
+body{
+	font-size: .28em;
+	overflow-x: hidden;
 }
 
 ul {
@@ -19,7 +23,7 @@ ul {
 
 .toolbar li {
     float: left;
-    margin: 10px;
+    margin: 0.2rem;
 }
 
 .showData{
@@ -33,14 +37,41 @@ ul {
 	padding: 20px;
 }
 
+.tip-bg{
+	position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #373737;
+    background-color: rgba(55, 55, 55, 0.6);
+
+    height: 100%;
+    z-index: 12;
+    display: none
+}
+
 .tip{
-	width: 150px;
-	height: 100px;
-	background: #eee;
+	width: 300px;
+	height: 300px;
+	background: #fff;
 	border:  1px solid #ccc;
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	transform: translate(-75px, -50px);
-	display: none
+	transform: translate(-150px, -150px);
+}
+
+.tip-con{
+	width: 200px;
+	height: 200px;
+	margin: 0 atuo;
+}
+.tip-con li{
+	width:100%;
+	height: 25px;
+	border:  1px solid #ccc;
+	margin:  20px;
+	color: purple;
+	font-size: 15px;
 }
