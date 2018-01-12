@@ -23,7 +23,8 @@ class NextG6 extends Component{
 			datasP: null,
 			isClick: false, 
 			dis: 'none',
-			disN: 'none'
+			disN: 'none', 
+			currentValue: 0
 			
 		}
 
@@ -420,8 +421,25 @@ class NextG6 extends Component{
 
 	//addLine
 	_anchorChange = () => {
+        //addLine: 直线-line/曲线-smooth/二次贝塞尔曲线 bezierQuadratic/水平-竖直 HV/竖直-水平-竖直 VHV/水平-竖直-水平 HVH
 		net.beginAdd('edge', {
 			shape: 'line'
+		})
+	}
+
+	//addsmooth
+	_addSmooth = () => {
+		net.beginAdd('edge', {
+			shape: 'smooth'
+		})
+	}
+
+	//addHVH 
+	_addHVH = () => {
+		net.beginAdd('edge', {
+			shape: 'HVH',
+			fill: 'purple',
+			stroke: '#ccc'
 		})
 	}
 
@@ -482,25 +500,13 @@ class NextG6 extends Component{
 		tipBg.style.display = this.state.dis
 	}
 
-	//addDom
-	_addDom = () => {
-		
-		const addDiv = this.refs.addDiv;
-		console.log(addDiv)
 
-		const oDiv = document.createElement('div')
-		const txt = document.createTextNode('this is addDom')
-
-		oDiv.appendChild(txt)
-		this.divArr.push(oDiv)
-		if(this.divArr.length >= 2){
-			return false;
-		}
-		addDiv.appendChild(oDiv)
-		
-		console.log('divArr', this.divArr)
-
-	}
+  getCurrentValue = (currentValue) => {
+  	this.setState({
+  		currentValue: currentValue
+  	})
+  }
+	
 
 	//render
 	render(){
@@ -519,6 +525,15 @@ class NextG6 extends Component{
 			    		<li><button className="edit" onClick={this._edit}>编辑模式</button></li>
 			    		<li><button className="save" onClick={this._save}>保存</button></li>
 			    		<li><button className="addLine" onClick={this._anchorChange}>addLine</button></li>
+			    		<li><button className="addSmooth" onClick={this._addSmooth}>addSmooth</button></li>
+			    		<li><button className="addHVH" onClick={this._addHVH}>addHVH</button></li>
+					</ul>
+					<ul className='left-bar'>
+						<li>first</li>
+						<li>second</li>
+						<li>third</li>
+						<li>forth</li>
+						<li>firth</li>
 					</ul>
 				</div>
 				<div className="showData" ref="showData">
@@ -533,12 +548,15 @@ class NextG6 extends Component{
 						</ul>
 					</div>
 				</div>
-				<button onClick={this._showMount}>showMount</button>
-				<button onClick={this._addDom}>addDom</button>
-				<div id="showMount" ref="showMount" style={{display: disN}}></div>
-				<div className="addDiv" ref="addDiv" style={{width: 200, height: 200, border: '1px solid #ccc' }}>
-					
+
+				<div className="mountAction" style={{width: 600, height: 600, margin: 30}}>
+					<button onClick={this._showMount}>showMount</button>
+					<div id="showMount" ref="showMount" style={{display: disN}}>
+
+					</div>
 				</div>
+				
+				
 
 
 			</div>

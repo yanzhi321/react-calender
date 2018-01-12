@@ -15,9 +15,15 @@ ul {
     list-style: none;
 }
 
+#mountNode{
+	width: 600px;
+	height: 600px;
+	margin: 10px 40px;
+}
 
 .toolbar {
     position: absolute;
+    width: 500px;
     z-index: 10;
 }
 
@@ -74,4 +80,19 @@ ul {
 	margin:  20px;
 	color: purple;
 	font-size: 15px;
+}
+
+.left-bar{
+	position: absolute;
+	top: 100px;
+	width: 200px;
+	hieght: 400px;
+	border: 1px solid #ccc;
+
+}
+
+.left-bar li{
+	width: 100%;
+	height: 30px;
+	border: 1px solid pink;
 }

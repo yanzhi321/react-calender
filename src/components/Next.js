@@ -6,6 +6,8 @@ import jsPlumb from 'jsplumb'
 import G6 from '@antv/g6'
 import G6Plugins from '@antv/g6-plugins'
 
+import SlideRuler from 'slide-ruler';
+
 
 // 第三步：设置数据
   const data = {
@@ -119,7 +121,8 @@ class Next extends Component{
 		super(props)
 		this.state = {
 			msg: 'Next',
-      addMount: false
+      addMount: false,
+      currentValue: 0
 		}
 	}
 
@@ -173,6 +176,13 @@ class Next extends Component{
 	}
 
 
+  //getCurrentValue
+  getCurrentValue = (currentValue) => {
+    this.setState({
+      currentValue: currentValue
+    })
+  }
+
 	render(){
 
 		const { msg } = this.state
@@ -189,6 +199,15 @@ class Next extends Component{
 				<div id='c2'>
 					
 				</div>
+        
+        <div className="slide-ruler">
+            <p>{this.state.currentValue}</p>
+            <SlideRuler getCurrentValue={this.getCurrentValue}
+              maxValue={200}
+              minValue={20}
+              divide={5}
+              precision={0.1}/>
+        </div>
 
 			</div>
 

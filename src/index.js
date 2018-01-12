@@ -5,8 +5,13 @@ import registerServiceWorker from './registerServiceWorker';
 //引入react-router
 import { Router, Route, Link,browserHistory,IndexRoute } from 'react-router';
 
+//good article---http://www.cnblogs.com/virtual/p/3735249.html#2944684
 //引入组件
+//http://116.62.169.175:8888/#tables/6f9f5f32-aa4d-4f07-bc19-b926ac781c7b -rethinkdb
+//https://rethinkdb.com/api/javascript/#insert -rethinkdb
+//https://winscp.net/eng/docs/after_installation?ver=5.11.3&lang=chs&utm_source=winscp&utm_medium=setup&utm_campaign=5.11.3&prevver=&automatic=0  -winscp
 
+//https://coding.net/u/rais/p/hotmap/git/tree/feature/moniapxiaoxi/  coding.net
 
 import Basic from './components/Basic'
 import Cultures from './components/Cultures'
@@ -40,7 +45,6 @@ ReactDOM.render((
 			  <Route path="next" component={Next}></Route>
 			  <Route path="nextg6" component={NextG6}></Route>
 			  <Route path="child" component={Child}></Route>
-
 
 	    </Route>
   	</Router>),

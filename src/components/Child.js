@@ -24,8 +24,12 @@ class Emoji extends Component{
 			count: 0,
 			eCount: 0,
 			listArr: [11111,22222,33333,44444],
-			emojisArr: emojis
+			emojisArr: emojis,
+			disN: 'none',
+			
 		}
+
+		this.divArr = []
 
 	}
 
@@ -119,13 +123,33 @@ class Emoji extends Component{
 
 	}
 
+	//addDom
+	_addDom = () => {
+		
+		const addDiv = this.refs.addDiv;
+		console.log(addDiv)
+
+		const oDiv = document.createElement('div')
+		const txt = document.createTextNode('this is addDom')
+
+		oDiv.appendChild(txt)
+		this.divArr.push(oDiv)
+		if(this.divArr.length >= 2){
+			return false;
+		}
+		addDiv.appendChild(oDiv)
+		
+		console.log('divArr', this.divArr)
+
+	}
+
 	render(){
 
-		const { imgStyle, dis, listArr, emojisArr } = this.state
+		const { imgStyle, dis, listArr, emojisArr, disN } = this.state
 		let change = dis ? 'hidden' : 'visible'
 		let that = this
 		return(
-			<div>
+			<div id="container">
 				<h2>{this.state.msg}</h2>
 				<ul className="list-emoji" style={{visibility: change}}>
 					{
@@ -159,7 +183,16 @@ class Emoji extends Component{
 
 					</ul>
 				</div>
+				
+				<hr />
 
+				<div className="addDom">
+					<button onClick={this._addDom}>addDom</button>
+					<div id="showMount" ref="showMount" style={{display: disN}}></div>
+						<div className="addDiv" ref="addDiv" style={{width: 200, height: 200, border: '1px solid #ccc' }}>
+					</div>
+				</div>
+				
 			</div>
 		)
 	}
