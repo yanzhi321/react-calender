@@ -9,6 +9,8 @@ import './static/css/nextG6.css'
 let net = null;
 const Util = G6.Util;
 
+let netN = null;
+
 class NextG6 extends Component{
 
 	constructor(props){
@@ -118,6 +120,8 @@ class NextG6 extends Component{
 	    		return shape;
 	    	}
 	    })
+
+		
 
 		//set G6 canvas
 	   	net = new G6.Net({
@@ -457,31 +461,30 @@ class NextG6 extends Component{
 		})
 		
 		if(isClick){
-
-			let netN = new G6.Net({
+			netN = new G6.Net({
 				id: 'showMount', // 容器ID
-		        mode: 'edit', // 编辑模式
-		        fitView: 'cc', // 自适应视口为左上
-		        width: 600,
-		        height: 600,
-		        grid: {
-		        	forceAlign: true,
-		        	cell: 30,
-		        	line: {
-		        		stroke: '#ccc'
-		        	}
-		        }
+				mode: 'edit', // 编辑模式
+				fitView: 'cc', // 自适应视口为左上
+				width: 600,
+				height: 600,
+				grid: {
+					forceAlign: true,
+					cell: 30,
+					line: {
+						stroke: '#ccc'
+					}
+				}
 			})
-
 			netN.source(datasP.source.nodes, datasP.source.edges)
+			console.log(netN)
 			netN.render()
+
 			this.state.datasP  = {}
 			this.setState({
 				datasP: this.state.datasP,
 				disN: 'block'
 			})
 
-			
 		}else{
 			alert("please save the data")
 		}
