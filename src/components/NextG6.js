@@ -120,7 +120,6 @@ class NextG6 extends Component{
 	    		return shape;
 	    	}
 	    })
-
 		
 
 		//set G6 canvas
